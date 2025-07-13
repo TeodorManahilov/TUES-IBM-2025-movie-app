@@ -58,6 +58,11 @@ const AdminDashboard = () => {
   };
 
   const handleAddOrUpdate = () => {
+    if (!['movie', 'show'].includes(form.type)) {
+      alert('Type must be either "movie" or "show".');
+      return;
+    }
+
     const payload = {
       ...form,
       cast: form.cast.split(',').map(c => c.trim()),
@@ -85,9 +90,10 @@ const AdminDashboard = () => {
         }
 
         alert(editIndex !== null ? "Updated successfully." : "Created successfully.");
+
         if (editIndex !== null) {
           const updated = [...movies];
-          updated[editIndex] = payload;
+          updated[editIndex] = { ...payload };
           setMovies(updated);
         } else {
           setMovies([...movies, { ...payload, id: Date.now() }]);
@@ -103,8 +109,16 @@ const AdminDashboard = () => {
   const handleEdit = (index) => {
     const movie = movies[index];
     setForm({
-      ...movie,
-      cast: Array.isArray(movie.cast) ? movie.cast.join(', ') : ''
+      title: movie.title || '',
+      genre: movie.genre || '',
+      type: movie.type || 'movie',
+      cast: Array.isArray(movie.cast) ? movie.cast.join(', ') : '',
+      poster: movie.poster || '',
+      year: movie.year || '',
+      duration: movie.duration || '',
+      rating: movie.averageRating || '',
+      description: movie.description || '',
+      director: movie.director || ''
     });
     setEditIndex(index);
   };
@@ -119,7 +133,7 @@ const AdminDashboard = () => {
         Authorization: "Basic " + btoa("test:test")
       },
       credentials: "include",
-      body: JSON.stringify(title) // backend expects just the string title
+      body: JSON.stringify(title)
     })
       .then(async (res) => {
         if (!res.ok) {
