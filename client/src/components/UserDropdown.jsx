@@ -46,7 +46,7 @@ const UserDropdown = ({ user, onLogout }) => {
         const transformedReviews = reviews.map(review => ({
           id: review.id,
           movieTitle: review.media.title,
-          comment: review.reviewContents,
+          comment: review.contents,
           date: review.date,
           mediaType: review.media.type || 'movie'
         }));
@@ -219,7 +219,9 @@ const UserDropdown = ({ user, onLogout }) => {
                     {userReviews.map(review => (
                       <div key={review.id} className="review-item">
                         <div className="review-header">
-                          <div className="review-title">{review.movieTitle}</div>
+                          <div>
+                            <h1 className="review-title">{review.movieTitle} - {review.comment}</h1>
+                          </div>
                           <button 
                             onClick={() => handleDeleteReview(review.movieTitle)}
                             className="delete-btn"
@@ -232,7 +234,7 @@ const UserDropdown = ({ user, onLogout }) => {
                           <Calendar size={12} />
                           {review.date}
                         </div>
-                        <p className="review-comment">{review.comment}</p>
+                        
                       </div>
                     ))}
                   </div>

@@ -3,7 +3,7 @@ import React from 'react';
 const FilterTabs = ({ activeFilter, onFilterChange }) => {
   const filters = [
     { key: 'all', label: 'All' },
-    { key: 'movies', label: 'Movies' },
+    { key: 'movie', label: 'Movies' },
     { key: 'series', label: 'TV Series' },
     { key: 'favorites', label: 'Favorites' },
     { key: 'watchlist', label: 'Watchlist' }

@@ -29,11 +29,10 @@ const Movies = ({ searchTerm, onSearch, currentUser }) => {
   const filteredMovies = movies.filter(movie => {
     const matchesSearch =
       movie.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      movie.genre?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (movie.cast || []).some(actor => actor.toLowerCase().includes(searchTerm.toLowerCase()));
+      movie.genre?.toLowerCase().includes(searchTerm.toLowerCase());
 
     switch (activeFilter) {
-      case 'movies':
+      case 'movie':
         return matchesSearch && movie.type === 'movie';
       case 'series':
         return matchesSearch && movie.type === 'show';
